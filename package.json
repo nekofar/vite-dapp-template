@@ -1,0 +1,30 @@
+{
+  "name": "vite-dapp-template",
+  "version": "1.0.0-alpha.0",
+  "private": true,
+  "description": "A template for create dApps using Vite",
+  "keywords": [],
+  "license": "Apache-2.0",
+  "author": "Milad Nekofar <milad@nekofar.com>",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md,sol}\"",
+    "lint": "turbo run lint"
+  },
+  "devDependencies": {
+    "eslint": "8.57.1",
+    "husky": "9.1.7",
+    "lint-staged": "16.0.0",
+    "prettier": "3.5.3",
+    "prettier-plugin-packagejson": "2.5.14",
+    "prettier-plugin-solidity": "2.0.0",
+    "prettier-plugin-toml": "2.0.5",
+    "turbo": "2.5.3"
+  },
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
+  }
+}
