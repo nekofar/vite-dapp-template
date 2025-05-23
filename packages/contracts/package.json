@@ -22,7 +22,6 @@
     "lint": "pnpm run --sequential '/^lint:.*/'",
     "lint:hardhat": "hardhat check",
     "lint:slither": "command -v slither >/dev/null 2>&1 || pip install slither-analyzer; slither .",
-    "prepare": "husky",
     "remappings": "forge remappings > remappings.txt",
     "pretest": "pnpm run build",
     "test": "pnpm run --sequential '/^test:.*/'",
