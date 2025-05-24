@@ -1,0 +1,35 @@
+name: Deploy Web Application
+
+on:
+  workflow_dispatch:
+    # Allow manual triggering
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.1.0
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build web application
+        run: pnpm run build
+
+      - name: Deploy to pinme
+        run: cd ./apps/web/ && pnpm pinme upload dist
