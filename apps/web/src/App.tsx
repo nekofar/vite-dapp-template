@@ -2,14 +2,22 @@ import { useState } from "react";
 import viteLogo from "/vite.svg";
 import reactLogo from "./assets/react.svg";
 
+// shadcn/ui components
 import { Card, CardContent } from "@repo/ui/components/card";
 import { Button } from "@repo/ui/components/button";
+import { useTheme } from "@/components/theme-provider";
 
 function App() {
   const [count, setCount] = useState(0);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-8">
+      {/* Theme toggle */}
+      <Button variant="outline" onClick={toggleTheme} className="self-end">
+        Switch to {theme === "dark" ? "light" : "dark"}
+      </Button>
+
       {/* Logos */}
       <div className="flex space-x-8">
         <a href="https://vite.dev" target="_blank" rel="noreferrer">
@@ -29,7 +37,7 @@ function App() {
       </div>
 
       {/* Heading */}
-      <h1 className="text-4xl font-bold">Vite + React + shadcn/ui 🚀</h1>
+      <h1 className="text-4xl font-bold">Vite + React + TS + shadcn/ui 🚀</h1>
 
       {/* Counter Card */}
       <Card className="w-full max-w-sm">
