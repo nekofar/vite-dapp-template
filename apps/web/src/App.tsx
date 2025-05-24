@@ -1,16 +1,16 @@
+import { Badge } from "@repo/ui/components/badge";
+import { Button } from "@repo/ui/components/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card";
 import { useState } from "react";
 import { useAccount, useBlockNumber, useConnect, useDisconnect } from "wagmi";
 
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-  CardDescription,
-} from "@repo/ui/components/card";
-import { Button } from "@repo/ui/components/button";
-import { Badge } from "@repo/ui/components/badge";
 import { useTheme } from "@/components/theme-provider";
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
   });
 
   const account = useAccount();
-  const { connectors, connect, error } = useConnect();
+  const { connect, connectors, error } = useConnect();
   const { disconnect } = useDisconnect();
 
   return (
@@ -31,7 +31,7 @@ export default function App() {
           <div className="flex items-center gap-4">
             <h1 className="text-2xl font-bold">Vite + React + shadcn/ui</h1>
           </div>
-          <Button variant="outline" onClick={toggleTheme}>
+          <Button onClick={toggleTheme} variant="outline">
             {theme === "dark" ? "Light" : "Dark"} mode
           </Button>
         </div>
@@ -44,7 +44,7 @@ export default function App() {
             <CardTitle className="flex items-center gap-2">
               Wallet
               {account.isConnected && (
-                <Badge variant="outline" className="ml-2">
+                <Badge className="ml-2" variant="outline">
                   Connected
                 </Badge>
               )}
@@ -81,10 +81,10 @@ export default function App() {
                 <div className="flex flex-wrap gap-2">
                   {connectors.map((connector) => (
                     <Button
+                      className="flex-1 min-w-24"
                       key={connector.uid}
                       onClick={() => connect({ connector })}
                       variant="outline"
-                      className="flex-1 min-w-24"
                     >
                       {connector.name}
                     </Button>
@@ -100,7 +100,7 @@ export default function App() {
           </CardContent>
           {account.isConnected && (
             <CardFooter className="flex justify-end pt-0">
-              <Button variant="destructive" onClick={() => disconnect()}>
+              <Button onClick={() => disconnect()} variant="destructive">
                 Disconnect
               </Button>
             </CardFooter>
@@ -117,8 +117,8 @@ export default function App() {
             <div className="flex items-center justify-between py-2">
               <span className="text-muted-foreground">Latest block:</span>
               <Badge
-                variant="secondary"
                 className="animate-pulse bg-green-500/10"
+                variant="secondary"
               >
                 {blockNumber ? blockNumber.toLocaleString() : "..."}
               </Badge>
@@ -135,10 +135,10 @@ export default function App() {
           <CardContent className="flex flex-col items-center justify-center space-y-4">
             <div className="flex items-center gap-2">
               <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setCount((c) => Math.max(0, c - 1))}
                 disabled={count === 0}
+                onClick={() => setCount((c) => Math.max(0, c - 1))}
+                size="icon"
+                variant="outline"
               >
                 -
               </Button>
@@ -146,9 +146,9 @@ export default function App() {
                 {count}
               </span>
               <Button
-                variant="outline"
-                size="icon"
                 onClick={() => setCount((c) => c + 1)}
+                size="icon"
+                variant="outline"
               >
                 +
               </Button>
