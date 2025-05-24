@@ -1,44 +1,53 @@
-# Name of the workflow
-name: Git Flow
+# =====================================================================
+# 🔄 GIT FLOW WORKFLOW
+# =====================================================================
+name: 🔄 Git Flow
 
-# Defines the event that triggers the workflow
+# ---------------------------------------------------------------------
+# 📋 WORKFLOW TRIGGERS
+# ---------------------------------------------------------------------
 on:
   push:
     branches:
-      - 'feature/*'  # Trigger for pushes to feature branches
-      - 'bugfix/*'   # Trigger for pushes to bugfix branches
-      - 'release/*'  # Trigger for pushes to release branches
-      - 'hotfix/*'   # Trigger for pushes to hotfix branches
+      - 'feature/*'  # 🌟 Trigger for pushes to feature branches
+      - 'bugfix/*'   # 🐛 Trigger for pushes to bugfix branches
+      - 'release/*'  # 📦 Trigger for pushes to release branches
+      - 'hotfix/*'   # 🔥 Trigger for pushes to hotfix branches
 
-# Jobs are a set of steps that execute on the same runner
+# ---------------------------------------------------------------------
+# 💼 JOBS
+# ---------------------------------------------------------------------
 jobs:
   create-pull-request:
-    # Specifies the runner environment, using the latest Ubuntu
     runs-on: ubuntu-latest
-    name: Create Pull Request
+    name: 📝 Create Pull Request
     permissions: write-all
+    timeout-minutes: 5
 
-    # Steps are individual tasks that run commands in a job
     steps:
-      # Checks out the repository code under $GITHUB_WORKSPACE, so the job can access it
-      - name: Checkout Repository Code
+      # 📥 CHECKOUT CODE
+      - name: 📥 Checkout Repository Code
         uses: actions/checkout@v4.2.2
 
-      # This step uses the Git Flow Action to create PRs based on branch types
-      - name: Execute Git Flow Action
-        uses: nekofar/git-flow-action@develop  # Specifies the Git Flow Action to use and the branch
+      # 🔀 EXECUTE GIT FLOW
+      - name: 🔀 Execute Git Flow Action
+        uses: nekofar/git-flow-action@develop
         with:
-          # The GitHub Token for authentication with GitHub API
+          # 🔑 Authentication token
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          # The branch to target for release and hotfix PRs
+          
+          # 🎯 TARGET BRANCHES
+          # Main production branch
           master-branch: 'master'
-          # The branch to target for feature and bugfix PRs
+          # Development branch
           develop-branch: 'develop'
-          # Prefix for feature branches
+          
+          # 🏷️ BRANCH PREFIXES
+          # New features
           feature-prefix: 'feature/'
-          # Prefix for bugfix branches
+          # Bug fixes
           bugfix-prefix: 'bugfix/'
-          # Prefix for release branches
+          # Version releases
           release-prefix: 'release/'
-          # Prefix for hotfix branches
+          # Critical fixes
           hotfix-prefix: 'hotfix/'
