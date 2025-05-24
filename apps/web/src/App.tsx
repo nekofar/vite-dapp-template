@@ -1,18 +1,57 @@
 import { useState } from "react";
-import viteLogo from "/vite.svg";
-import reactLogo from "./assets/react.svg";
+
+import { useAccount, useBlockNumber, useConnect, useDisconnect } from "wagmi";
 
 // shadcn/ui components
 import { Card, CardContent } from "@repo/ui/components/card";
 import { Button } from "@repo/ui/components/button";
 import { useTheme } from "@/components/theme-provider";
+import viteLogo from "/vite.svg";
+import reactLogo from "./assets/react.svg";
 
 function App() {
   const [count, setCount] = useState(0);
   const { theme, toggleTheme } = useTheme();
+  const { data: blockNumber } = useBlockNumber();
+
+  // wagmi hooks
+  const account = useAccount();
+  const { connectors, connect, status, error } = useConnect();
+  const { disconnect } = useDisconnect();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-8">
+      {/* wallet connect */}
+      <div className="flex space-x-2">
+        <div>
+          status: {account.status}
+          <br />
+          addresses: {JSON.stringify(account.addresses)}
+          <br />
+          chainId: {account.chainId}
+        </div>
+
+        {account.isConnected ? (
+          <Button variant="destructive" onClick={() => disconnect()}>
+            Disconnect
+          </Button>
+        ) : (
+          <>
+            {connectors.map((connector) => (
+              <Button
+                key={connector.uid}
+                onClick={() => connect({ connector })}
+                type="button"
+              >
+                {connector.name}
+              </Button>
+            ))}
+            <div>{status}</div>
+            <div>{error?.message}</div>
+          </>
+        )}
+      </div>
+
       {/* Theme toggle */}
       <Button variant="outline" onClick={toggleTheme} className="self-end">
         Switch to {theme === "dark" ? "light" : "dark"}
@@ -38,6 +77,9 @@ function App() {
 
       {/* Heading */}
       <h1 className="text-4xl font-bold">Vite + React + TS + shadcn/ui 🚀</h1>
+
+      {/* Latest block number */}
+      <p>Latest block: {blockNumber ?? "..."}</p>
 
       {/* Counter Card */}
       <Card className="w-full max-w-sm">
