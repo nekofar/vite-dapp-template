@@ -41,10 +41,10 @@ export default function App() {
             <div className="flex items-center justify-between">
               <div>
                 <p>Status: {account.status}</p>
-                <p>Address: {account.addresses.join(", ")}</p>
+                <p>Address: {account.addresses?.join(", ") || "Not available"}</p>
                 <p>Chain: {account.chainId}</p>
               </div>
-              <Button variant="destructive" onClick={disconnect}>
+              <Button variant="destructive" onClick={() => disconnect()}>
                 Disconnect
               </Button>
             </div>
