@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAccount, useBlockNumber, useConnect, useDisconnect } from "wagmi";
 
-// shadcn/ui components
 import {
   Card,
   CardHeader,
@@ -21,7 +20,6 @@ export default function App() {
     watch: true,
   });
 
-  // wagmi hooks
   const account = useAccount();
   const { connectors, connect, error } = useConnect();
   const { disconnect } = useDisconnect();
