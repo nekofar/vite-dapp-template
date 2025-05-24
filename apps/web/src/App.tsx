@@ -13,8 +13,6 @@ import {
 import { Button } from "@repo/ui/components/button";
 import { Badge } from "@repo/ui/components/badge";
 import { useTheme } from "@/components/theme-provider";
-import viteLogo from "/vite.svg";
-import reactLogo from "./assets/react.svg";
 
 export default function App() {
   const [count, setCount] = useState(0);
@@ -135,43 +133,6 @@ export default function App() {
               >
                 {blockNumber ? blockNumber.toLocaleString() : "..."}
               </Badge>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Hero Section Card */}
-        <Card className="md:col-span-2 lg:col-span-3">
-          <CardContent className="flex flex-col items-center justify-center py-8 space-y-6">
-            <div className="flex items-center gap-8">
-              <a
-                href="https://vite.dev"
-                target="_blank"
-                rel="noreferrer"
-                className="transition-transform hover:scale-110"
-              >
-                <img
-                  src={viteLogo}
-                  alt="Vite logo"
-                  className="h-24 w-24 animate-spin"
-                  style={{ animationDuration: "10s" }}
-                />
-              </a>
-              <a
-                href="https://react.dev"
-                target="_blank"
-                rel="noreferrer"
-                className="transition-transform hover:scale-110"
-              >
-                <img src={reactLogo} alt="React logo" className="h-24 w-24" />
-              </a>
-            </div>
-            <div className="text-center space-y-2">
-              <h1 className="text-4xl font-bold">
-                Vite + React + TS + shadcn/ui
-              </h1>
-              <p className="text-muted-foreground">
-                Modern web development stack with type safety and beautiful UI
-              </p>
             </div>
           </CardContent>
         </Card>
