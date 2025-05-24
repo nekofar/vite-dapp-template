@@ -11,25 +11,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checking out repository code
         uses: actions/checkout@v4.2.2
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1.4.0
+        with:
+          version: nightly
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4.4.0
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          cache: 'pnpm'
-          node-version-file: 'package.json'
+          cache: "pnpm"
+          node-version-file: "package.json"
 
+      # Installs all dependencies specified in the project's package.json file.
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build web application
+      - name: Build the apps and packages
         run: pnpm run build
+
+      # Runs unit tests all apps and packages
+      - name: Execute tests all apps and packages
+        run: pnpm run test
 
       - name: Deploy to pinme
         run: cd ./apps/web/ && pnpm pinme upload dist
