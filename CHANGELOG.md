@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0-alpha.1] - 2025-05-24
+
+### Features
+
+- Initial scaffold with Vite, React, and TypeScript
+- Add Tailwind CSS plugin to Vite config
+- Add Tailwind CSS integration
+- Add alias configuration for `@` in Vite
+- Introduce reusable UI library with Tailwind
+- Add `@repo/ui` package integration
+- Add `Card` component with subcomponents
+- Enhance app layout and add animations
+- Add `ThemeProvider` context for theme management
+- Add theme provider and toggle functionality
+- Enhance HTML structure for theming support
+- Add `wagmi` configuration for blockchain support
+- Integrate `wagmi` and `react-query` providers
+- Integrate wallet connection with `wagmi`
+
+### Bug Fixes
+
+- Update `@repo/ui` alias path in vite config
+
+### Refactor
+
+- Replace custom styles with shared `ui` components
+- Remove unused CSS styles
+- Restructure `App` layout with shadcn/ui cards
+
+### Miscellaneous Tasks
+
+- Remove Node.js version specification
+- Add `baseUrl` and path aliases to tsconfig
+- Update `index.css` import to use shared package
+- Update path alias in `tsconfig.json`
+
+### Styling
+
+- Update styles for better dark mode support
+- Simplify ESLint config comments
+
 ## [1.0.0-alpha.0] - 2025-05-24
 
 ### Bug Fixes

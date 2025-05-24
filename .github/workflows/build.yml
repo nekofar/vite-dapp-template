@@ -57,8 +57,6 @@ jobs:
 
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4.4.0
-        with:
-          node-version: ^20
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1.4.0
