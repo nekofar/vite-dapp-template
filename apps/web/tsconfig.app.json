@@ -26,7 +26,8 @@
     /* Base directory to resolve non-relative module names. */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@repo/ui/*": ["../../packages/ui/src/*"]
     }
   },
   "include": ["src"]
