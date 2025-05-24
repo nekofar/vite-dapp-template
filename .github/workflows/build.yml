@@ -75,18 +75,15 @@ jobs:
           node-version: 22
           cache: "pnpm"
 
+      # Installs all dependencies specified in the project's package.json file.
       - name: Install dependencies
         run: pnpm install
 
-      # Installs all dependencies specified in the project's package.json file.
-      - name: Install pnpm dependencies
-        run: pnpm install
-
-      - name: Build the smart contracts
+      - name: Build the apps and packages
         run: pnpm run build
 
-      # Runs unit tests for the application using Hardhat and Forge.
-      - name: Execute tests using Hardhat and Forge
+      # Runs unit tests all apps and packages
+      - name: Execute tests all apps and packages
         run: pnpm run test
 
   release:
