@@ -32,15 +32,6 @@ export default function App() {
         <div className="container mx-auto p-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <h1 className="text-2xl font-bold">Vite + React + shadcn/ui</h1>
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">Block:</span>
-              <Badge
-                variant="outline"
-                className="animate-pulse bg-green-500/10"
-              >
-                {blockNumber ? blockNumber.toLocaleString() : "..."}
-              </Badge>
-            </div>
           </div>
           <Button variant="outline" onClick={toggleTheme}>
             {theme === "dark" ? "Light" : "Dark"} mode
@@ -50,7 +41,7 @@ export default function App() {
 
       <main className="container mx-auto p-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3 my-8">
         {/* Wallet Connect Card */}
-        <Card className="md:col-span-2 lg:col-span-2">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               Wallet
@@ -172,12 +163,6 @@ export default function App() {
           </CardFooter>
         </Card>
       </main>
-
-      <footer className="border-t py-6">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>Click on the Vite and React logos to learn more</p>
-        </div>
-      </footer>
     </div>
   );
 }
