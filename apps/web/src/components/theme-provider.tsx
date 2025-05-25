@@ -6,19 +6,19 @@ import {
   useState,
 } from "react";
 
-type Theme = "light" | "dark";
-interface ThemeContextProps {
+type Theme = "dark" | "light";
+interface ThemeContextProperties {
   theme: Theme;
   toggleTheme: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextProperties | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem("theme") as Theme | null;
+    const saved = localStorage.getItem("theme") as null | Theme;
     if (saved) return saved;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
+    return globalThis.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
   });
@@ -32,7 +32,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    setTheme((previous) => (previous === "dark" ? "light" : "dark"));
   };
 
   return (
@@ -43,7 +43,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 }
 
 export function useTheme() {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error("useTheme must be inside ThemeProvider");
-  return ctx;
+  const context = useContext(ThemeContext);
+  if (!context) throw new Error("useTheme must be inside ThemeProvider");
+  return context;
 }
