@@ -25,9 +25,9 @@ export default function App() {
   const { disconnect } = useDisconnect();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background min-h-screen">
       <header className="border-b">
-        <div className="container mx-auto p-4 flex items-center justify-between">
+        <div className="container mx-auto flex items-center justify-between p-4">
           <div className="flex items-center gap-4">
             <h1 className="text-2xl font-bold">Vite + React + shadcn/ui</h1>
           </div>
@@ -37,7 +37,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="container mx-auto p-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3 my-8">
+      <main className="container mx-auto my-8 grid gap-6 p-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Wallet Connect Card */}
         <Card>
           <CardHeader>
@@ -63,7 +63,7 @@ export default function App() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Address:</span>
-                    <span className="font-medium truncate max-w-[200px]">
+                    <span className="max-w-[200px] truncate font-medium">
                       {account.addresses?.join(", ") || "Not available"}
                     </span>
                   </div>
@@ -75,13 +75,13 @@ export default function App() {
               </div>
             ) : (
               <div className="grid gap-4">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Connect with one of the available wallet providers:
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {connectors.map((connector) => (
                     <Button
-                      className="flex-1 min-w-24"
+                      className="min-w-24 flex-1"
                       key={connector.uid}
                       onClick={() => connect({ connector })}
                       variant="outline"
@@ -91,7 +91,7 @@ export default function App() {
                   ))}
                 </div>
                 {error && (
-                  <p className="text-sm text-destructive p-2 bg-destructive/10 rounded-md">
+                  <p className="text-destructive bg-destructive/10 rounded-md p-2 text-sm">
                     {error.message}
                   </p>
                 )}
@@ -142,7 +142,7 @@ export default function App() {
               >
                 -
               </Button>
-              <span className="text-2xl font-bold min-w-10 text-center">
+              <span className="min-w-10 text-center text-2xl font-bold">
                 {count}
               </span>
               <Button
@@ -155,7 +155,7 @@ export default function App() {
             </div>
             <Button onClick={() => setCount((c) => c + 1)}>Increment</Button>
           </CardContent>
-          <CardFooter className="text-xs text-muted-foreground text-center">
+          <CardFooter className="text-muted-foreground text-center text-xs">
             Edit <code className="text-xs">src/App.tsx</code> and save to test
             HMR
           </CardFooter>
