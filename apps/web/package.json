@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prebuild": "is-ci && exit 0 || (pnpm clean && pnpm wagmi generate)",
     "build": "tsc -b && vite build",
+    "clean": "rimraf dist",
     "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview"
