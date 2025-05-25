@@ -9,9 +9,20 @@ import {
   CardTitle,
 } from "@repo/ui/components/card";
 import { useState } from "react";
-import { useAccount, useBlockNumber, useConnect, useDisconnect } from "wagmi";
+import {
+  useAccount,
+  useBlockNumber,
+  useConnect,
+  useDisconnect,
+  useWatchBlocks,
+} from "wagmi";
 
 import { useTheme } from "@/components/theme-provider";
+import {
+  useReadCounterNumber,
+  useWriteCounterIncrement,
+  useWriteCounterSetNumber,
+} from "@/hooks/contracts";
 
 export default function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +34,22 @@ export default function App() {
   const account = useAccount();
   const { connect, connectors, error } = useConnect();
   const { disconnect } = useDisconnect();
+
+  const { data: counterNumber, refetch: refetchCounterNumber } =
+    useReadCounterNumber({});
+  const { writeContract: setCounterNumber } = useWriteCounterSetNumber();
+  const { writeContract: increaseCounterNumber } = useWriteCounterIncrement();
+
+  useWatchBlocks({
+    onBlock: () => {
+      refetchCounterNumber();
+
+      const currentCount = Number(counterNumber ?? 0n);
+      if (currentCount !== count) {
+        return setCount(currentCount);
+      }
+    },
+  });
 
   return (
     <div className="bg-background min-h-screen">
@@ -136,7 +163,10 @@ export default function App() {
             <div className="flex items-center gap-2">
               <Button
                 disabled={count === 0}
-                onClick={() => setCount((c) => Math.max(0, c - 1))}
+                onClick={() => {
+                  setCounterNumber({ args: [BigInt(Math.max(1, count - 1))] });
+                  refetchCounterNumber();
+                }}
                 size="icon"
                 variant="outline"
               >
@@ -146,14 +176,24 @@ export default function App() {
                 {count}
               </span>
               <Button
-                onClick={() => setCount((c) => c + 1)}
+                onClick={() => {
+                  setCounterNumber({ args: [BigInt(count + 1)] });
+                  refetchCounterNumber();
+                }}
                 size="icon"
                 variant="outline"
               >
                 +
               </Button>
             </div>
-            <Button onClick={() => setCount((c) => c + 1)}>Increment</Button>
+            <Button
+              onClick={() => {
+                increaseCounterNumber({});
+                refetchCounterNumber();
+              }}
+            >
+              Increment
+            </Button>
           </CardContent>
           <CardFooter className="text-muted-foreground text-center text-xs">
             Edit <code className="text-xs">src/App.tsx</code> and save to test
