@@ -31,7 +31,7 @@ ThemeContext.displayName = "ThemeContext";
 /**
  * Theme provider component
  */
-export function ThemeProvider({ children }: { children: ReactNode }) {
+export function ThemeProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   // Apply theme to document and persist in localStorage
@@ -50,15 +50,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const contextValue = { theme, toggleTheme };
 
   return (
-    <ThemeContext.Provider value={contextValue}>
+    <ThemeContext value={contextValue}>
       {children}
-    </ThemeContext.Provider>
+    </ThemeContext>
   );
 }
 
 /**
  * Hook to access the theme context
- * @throws Error if used outside of ThemeProvider
+ * @throws Error if used outside ThemeProvider
  */
 export function useTheme() {
   const context = useContext(ThemeContext);
