@@ -6,7 +6,8 @@ import perfectionistPlugin from "eslint-plugin-perfectionist";
 import tseslint from "typescript-eslint";
 import unicornPlugin from "eslint-plugin-unicorn";
 import sonarjsPlugin from "eslint-plugin-sonarjs";
-import importXPlugin from 'eslint-plugin-import-x'
+import importXPlugin from "eslint-plugin-import-x";
+import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 
 export default tseslint.config(
   { ignores: ["dist"] },
@@ -23,7 +24,7 @@ export default tseslint.config(
       perfectionist: perfectionistPlugin,
       unicorn: unicornPlugin,
       sonarjs: sonarjsPlugin,
-      'import-x': importXPlugin,
+      "import-x": importXPlugin,
     },
     rules: {
       ...reactHooksPlugin.configs.recommended.rules,
@@ -35,6 +36,14 @@ export default tseslint.config(
       ...unicornPlugin.configs.recommended.rules,
       ...sonarjsPlugin.configs.recommended.rules,
       ...importXPlugin.configs.recommended.rules,
+    },
+    settings: {
+      "import-x/resolver-next": [
+        createTypeScriptImportResolver({
+          alwaysTryTypes: true,
+          project: "packages/*/{ts,js}config.json",
+        }),
+      ],
     },
   },
 );
