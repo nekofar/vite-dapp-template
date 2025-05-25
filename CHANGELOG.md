@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0-alpha.4] - 2025-05-25
+
+### Features
+
+- Configure `wagmi` with `etherscan` plugin
+- Add `counter` contract configuration
+- Add hooks for `counter` contract interactions
+- Integrate counter with smart contract
+
+### Bug Fixes
+
+- Update import for `App` to match casing
+
+### Refactor
+
+- Rename eslint plugin imports for clarity
+- Update context and improve type naming
+- Remove unused `unusedImportsPlugin` rules
+- Remove `mainnet` chain from wagmi config
+- Remove unused `CardFooter` component
+- Add `shortenAddress` helper for UI improvement
+- Modularize and optimize component structure
+
+### Miscellaneous Tasks
+
+- Add `eslint-plugin-unicorn` to eslint config
+- Update eslint config with typescript resolver
+- Add `prebuild` and `clean` scripts
+- Update linting and formatting ignores
+- Update output file extension in wagmi config
+
 ## [1.0.0-alpha.3] - 2025-05-25
 
 ### Features
