@@ -5,6 +5,7 @@ import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
 import tseslint from "typescript-eslint";
 import unicornPlugin from "eslint-plugin-unicorn";
+import sonarjsPlugin from "eslint-plugin-sonarjs";
 
 export default tseslint.config(
   { ignores: ["dist"] },
@@ -20,6 +21,7 @@ export default tseslint.config(
       "react-refresh": reactRefreshPlugin,
       perfectionist: perfectionistPlugin,
       unicorn: unicornPlugin,
+      sonarjs: sonarjsPlugin,
     },
     rules: {
       ...reactHooksPlugin.configs.recommended.rules,
@@ -29,6 +31,7 @@ export default tseslint.config(
       ],
       ...perfectionistPlugin.configs["recommended-natural"].rules,
       ...unicornPlugin.configs.recommended.rules,
+      ...sonarjsPlugin.configs.recommended.rules,
     },
   },
 );
