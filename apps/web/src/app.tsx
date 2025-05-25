@@ -195,10 +195,6 @@ export default function App() {
               Increment
             </Button>
           </CardContent>
-          <CardFooter className="text-muted-foreground text-center text-xs">
-            Edit <code className="text-xs">src/App.tsx</code> and save to test
-            HMR
-          </CardFooter>
         </Card>
       </main>
     </div>
