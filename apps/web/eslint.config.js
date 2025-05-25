@@ -10,7 +10,7 @@ import importXPlugin from "eslint-plugin-import-x";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 
 export default tseslint.config(
-  { ignores: ["dist"] },
+  { ignores: ["dist", "src/hooks/contracts.ts"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
