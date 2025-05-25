@@ -8,6 +8,7 @@ import unicornPlugin from "eslint-plugin-unicorn";
 import sonarjsPlugin from "eslint-plugin-sonarjs";
 import importXPlugin from "eslint-plugin-import-x";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
+import unusedImportsPlugin from "eslint-plugin-unused-imports";
 
 export default tseslint.config(
   { ignores: ["dist", "src/hooks/contracts.ts"] },
@@ -25,6 +26,7 @@ export default tseslint.config(
       unicorn: unicornPlugin,
       sonarjs: sonarjsPlugin,
       "import-x": importXPlugin,
+      "unused-imports": unusedImportsPlugin,
     },
     rules: {
       ...reactHooksPlugin.configs.recommended.rules,
@@ -36,6 +38,7 @@ export default tseslint.config(
       ...unicornPlugin.configs.recommended.rules,
       ...sonarjsPlugin.configs.recommended.rules,
       ...importXPlugin.configs.recommended.rules,
+      ...unusedImportsPlugin.configs.recommended.rules,
     },
     settings: {
       "import-x/resolver-next": [
