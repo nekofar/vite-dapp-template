@@ -5,7 +5,7 @@ import { WagmiProvider } from "wagmi";
 
 import { ThemeProvider } from "@/components/theme-provider";
 
-import App from "./App.tsx";
+import App from "./app.tsx";
 import { config } from "./wagmi.ts";
 
 import "@repo/ui/index.css";
