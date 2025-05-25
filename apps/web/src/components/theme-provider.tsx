@@ -1,49 +1,84 @@
 import {
   createContext,
   type ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useState,
 } from "react";
 
-type Theme = "dark" | "light";
+/**
+ * Theme type definition
+ */
+export type Theme = "dark" | "light";
+
+/**
+ * Theme context properties interface
+ */
 interface ThemeContextProperties {
   theme: Theme;
   toggleTheme: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextProperties | undefined>(undefined);
+/**
+ * Context for providing theme state and toggle function
+ */
+const ThemeContext = createContext<ThemeContextProperties | undefined>(
+  undefined,
+);
+ThemeContext.displayName = "ThemeContext";
 
+/**
+ * Theme provider component
+ */
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem("theme") as null | Theme;
-    if (saved) return saved;
-    return globalThis.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  });
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
+  // Apply theme to document and persist in localStorage
   useEffect(() => {
-    document.documentElement.classList.remove(
-      theme === "dark" ? "light" : "dark",
-    );
+    document.documentElement.classList.remove("dark", "light");
     document.documentElement.classList.add(theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
+  // Memoize the toggle function to prevent recreation on each render
+  const toggleTheme = useCallback(() => {
     setTheme((previous) => (previous === "dark" ? "light" : "dark"));
-  };
+  }, []);
+
+  // Memoize the context value to prevent unnecessary rerenders
+  const contextValue = { theme, toggleTheme };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
+/**
+ * Hook to access the theme context
+ * @throws Error if used outside of ThemeProvider
+ */
 export function useTheme() {
   const context = useContext(ThemeContext);
-  if (!context) throw new Error("useTheme must be inside ThemeProvider");
+  if (!context) throw new Error("useTheme must be used inside ThemeProvider");
   return context;
+}
+
+/**
+ * Gets the initial theme based on local storage or system preference
+ */
+function getInitialTheme(): Theme {
+  if (globalThis.window !== undefined) {
+    const saved = localStorage.getItem("theme") as null | Theme;
+    if (saved && (saved === "dark" || saved === "light")) return saved;
+
+    return globalThis.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+
+  // Default for SSR
+  return "light";
 }
