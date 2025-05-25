@@ -5,7 +5,7 @@ import 'dotenv/config';
 
 export default defineConfig({
   contracts: [],
-  out: "src/hooks/contracts.tsx",
+  out: "src/hooks/contracts.ts",
   plugins: [
     etherscan({
       apiKey: process.env.ETHERSCAN_API_KEY!,
