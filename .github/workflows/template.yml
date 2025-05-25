@@ -1,61 +1,60 @@
-# Assign a name to the workflow.
-name: Template Cleanup
+# =====================================================================
+# 🧹 TEMPLATE CLEANUP WORKFLOW
+# =====================================================================
+name: 🧹 Template Cleanup
 
-# Specify when this workflow is going to be triggered.
+# ---------------------------------------------------------------------
+# 📋 WORKFLOW TRIGGERS
+# ---------------------------------------------------------------------
 on:
-  # In this case, the workflow will be triggered whenever there is a push to the master branch.
   push:
-    branches: [master]
+    branches: [master] # 🔄 Run on push to master branch
 
-# Define the jobs that this workflow will perform.
+# ---------------------------------------------------------------------
+# 💼 JOBS
+# ---------------------------------------------------------------------
 jobs:
-  # Declare a job named 'cleanup'.
   cleanup:
-    # Specify the type of runner that the job should run on - Latest version of Ubuntu.
+    name: 🧹 Cleanup Template Files
     runs-on: ubuntu-latest
-
-    # Define permissions for this job.
     permissions:
       contents: write
-
-    # A conditional check to ensure the job runs only if the name of the repository meets the constraint.
+    # Run only if not the template repository
     if: github.repository != 'nekofar/vite-dapp-template'
+    timeout-minutes: 10
 
-    # Define the steps to be followed in this job.
     steps:
-      # Checkout the code.
-      - name: Checkout code
+      # 📥 CHECKOUT
+      - name: 📥 Checkout code
         uses: actions/checkout@v4.2.2
 
-      # Set up Node.js environment.
-      - name: Set up Node.js environment
+      # 🛠️ SETUP ENVIRONMENT
+      - name: 🟢 Set up Node.js environment
         uses: actions/setup-node@v4.4.0
 
-      - name: Install Foundry
+      - name: 🔧 Install Foundry
         uses: foundry-rs/foundry-toolchain@v1.4.0
         with:
           version: nightly
 
-      # Install pnpm package manager.
-      - name: Install pnpm package manager
+      - name: 📦 Install pnpm package manager
         uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
-      # Clean up the repository.
-      - name: Clean up the repository
-        # The 'run:' statement let's you execute commands directly.
+      # 🧹 CLEANUP
+      - name: 🧹 Clean up the repository
         run: |
-          # Declare and assign local variables.
+          # 📝 Set project name and version
           NAME="$(basename $GITHUB_REPOSITORY)"
           VERSION='1.0.0-alpha.0'
 
-          # Use pnpm dlx json to modify package.json name and version fields.
+          # 🔄 Update package.json
           pnpm dlx json -I -f package.json -e "this.name='${NAME}'"
           pnpm dlx json -I -f package.json -e "this.version='${VERSION}'"
-          pnpm install --no-frozen-lockfile  # Install dependencies (ignoring lock file)
+          pnpm install --no-frozen-lockfile
 
-          # Remove template specific files and directories.
+          # 🗑️ Remove template files
           rm -rf \
             .github/ISSUE_TEMPLATE \
             .github/workflows/template.yml \
@@ -65,16 +64,15 @@ jobs:
             CHANGELOG.md \
             README.md
 
-      # Commit the changes made to the repository.
-      - name: Commit files
+      # 💾 COMMIT & PUSH
+      - name: 💾 Commit files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
           git commit -m 'chore: initial template cleanup'
 
-      # Push the changes to the repository.
-      - name: Push changes
+      - name: 📤 Push changes
         uses: ad-m/github-push-action@master
         with:
           branch: master
