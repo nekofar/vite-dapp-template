@@ -38,7 +38,6 @@ export default tseslint.config(
       ...unicornPlugin.configs.recommended.rules,
       ...sonarjsPlugin.configs.recommended.rules,
       ...importXPlugin.configs.recommended.rules,
-      ...unusedImportsPlugin.configs.recommended.rules,
     },
     settings: {
       "import-x/resolver-next": [
