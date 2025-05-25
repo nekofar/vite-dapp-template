@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0-alpha.3] - 2025-05-25
+
+### Features
+
+- Add `Badge` component
+- Add `Separator` component
+- Enhance UI layout and update components
+- Display real-time block number with badge
+
+### Bug Fixes
+
+- Handle null `addresses` and update `disconnect`
+
+### Refactor
+
+- Remove unused hero section and assets
+- Simplify layout by removing unused UI elements
+- Remove unused comments for cleaner code
+
+### Miscellaneous Tasks
+
+- Trigger builds on `develop` branch
+- Remove `pnpm` version specification
+- Update workflow to streamline build and tests
+- Add GitHub Actions workflow for deployment
+- Remove explicit `node-version` in setup
+- Use `node-version-file` for Node.js setup
+- Update deploy workflow steps
+- Enhance workflow readability and structure
+- Update package name to use scoped naming
+- Add `eslint-plugin-perfectionist`
+
+### Styling
+
+- Add `@source` declaration in CSS
+- Adjust component imports and prop ordering
+- Reorder class names for consistency
+
 ## [1.0.0-alpha.2] - 2025-05-24
 
 ### Miscellaneous Tasks
