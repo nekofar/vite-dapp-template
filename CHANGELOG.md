@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0-alpha.5] - 2025-05-25
+
+### Refactor
+
+- Prevent unnecessary state updates
+- Improve code readability and clarity
+- Simplify context usage
+
+### Documentation
+
+- Remove outdated README.md
+
 ## [1.0.0-alpha.4] - 2025-05-25
 
 ### Features

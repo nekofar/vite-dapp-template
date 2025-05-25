@@ -26,29 +26,31 @@ export function CounterCard() {
   // Update the UI when the contract value changes
   useEffect(() => {
     const currentCount = Number(counterNumber ?? 0n);
-    setCount(currentCount);
-  }, [counterNumber]);
+    if (count !== currentCount) {
+      setCount(currentCount);
+    }
+  }, [counterNumber, count]);
 
   // Watch for blocks and refresh counter value
   useWatchBlocks({
     onBlock: () => {
-      refetchCounterNumber();
+      void refetchCounterNumber();
     },
   });
 
   const handleDecrement = useCallback(() => {
     setCounterNumber({ args: [BigInt(Math.max(1, count - 1))] });
-    refetchCounterNumber();
+    void refetchCounterNumber();
   }, [count, setCounterNumber, refetchCounterNumber]);
 
   const handleIncrement = useCallback(() => {
     setCounterNumber({ args: [BigInt(count + 1)] });
-    refetchCounterNumber();
+    void refetchCounterNumber();
   }, [count, setCounterNumber, refetchCounterNumber]);
 
   const handleIncrementContract = useCallback(() => {
     increaseCounterNumber({});
-    refetchCounterNumber();
+    void refetchCounterNumber();
   }, [increaseCounterNumber, refetchCounterNumber]);
 
   return (
