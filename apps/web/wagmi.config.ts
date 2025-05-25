@@ -1,7 +1,7 @@
 import { defineConfig } from "@wagmi/cli";
-import { etherscan } from "@wagmi/cli/plugins";
+import { etherscan, react } from "@wagmi/cli/plugins";
 import { sepolia } from "wagmi/chains";
-import 'dotenv/config';
+import "dotenv/config";
 
 export default defineConfig({
   contracts: [],
@@ -20,5 +20,6 @@ export default defineConfig({
       ],
       tryFetchProxyImplementation: true,
     }),
+    react(),
   ],
 });
