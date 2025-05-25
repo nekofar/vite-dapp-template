@@ -45,7 +45,7 @@ export function WalletCard() {
                 <span className="font-medium">
                   {account.addresses
                     ?.map((addr) => shortenAddress(addr))
-                    .join(", ") || "Not available"}
+                    .join(", ") ?? "Not available"}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -64,7 +64,9 @@ export function WalletCard() {
                 <Button
                   className="min-w-24 flex-1"
                   key={connector.uid}
-                  onClick={() => connect({ connector })}
+                  onClick={() => {
+                    connect({ connector });
+                  }}
                   variant="outline"
                 >
                   {connector.name}
@@ -81,7 +83,12 @@ export function WalletCard() {
       </CardContent>
       {account.isConnected && (
         <CardFooter className="flex justify-end pt-0">
-          <Button onClick={() => disconnect()} variant="destructive">
+          <Button
+            onClick={() => {
+              disconnect();
+            }}
+            variant="destructive"
+          >
             Disconnect
           </Button>
         </CardFooter>
