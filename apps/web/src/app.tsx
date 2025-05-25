@@ -24,6 +24,11 @@ import {
   useWriteCounterSetNumber,
 } from "@/hooks/contracts";
 
+const shortenAddress = (address: string, chars = 4): string => {
+  if (!address) return '';
+  return `${address.slice(0, Math.max(0, chars + 2))}...${address.slice(Math.max(0, address.length - chars))}`;
+};
+
 export default function App() {
   const [count, setCount] = useState(0);
   const { theme, toggleTheme } = useTheme();
@@ -90,8 +95,8 @@ export default function App() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Address:</span>
-                    <span className="max-w-[200px] truncate font-medium">
-                      {account.addresses?.join(", ") || "Not available"}
+                    <span className="font-medium">
+                      {account.addresses?.map(addr => shortenAddress(addr)).join(", ") || "Not available"}
                     </span>
                   </div>
                   <div className="flex justify-between">
