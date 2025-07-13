@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0-alpha.6] - 2025-07-13
+
+### Miscellaneous Tasks
+
+- Update checkout and environment setup steps
+
 ## [1.0.0-alpha.5] - 2025-05-25
 
 ### Refactor
