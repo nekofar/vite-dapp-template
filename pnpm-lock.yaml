@@ -189,8 +189,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0(52410fdf3f12fd252baa0a8f305b463c)
       '@nomiclabs/hardhat-solhint':
-        specifier: 4.0.2
-        version: 4.0.2(hardhat@2.25.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.0.13)(typescript@5.8.3))(typescript@5.8.3)(utf-8-validate@5.0.10))(typescript@5.8.3)
+        specifier: 4.1.0
+        version: 4.1.0(hardhat@2.25.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.0.13)(typescript@5.8.3))(typescript@5.8.3)(utf-8-validate@5.0.10))(typescript@5.8.3)
       '@typechain/ethers-v6':
         specifier: 0.5.1
         version: 0.5.1(ethers@6.15.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(typechain@8.3.2(typescript@5.8.3))(typescript@5.8.3)
@@ -1420,10 +1420,10 @@ packages:
     resolution: {integrity: sha512-q4n32/FNKIhQ3zQGGw5CvPF6GTvDCpYwIf7bEY/dZTZbgfDsHyjJwURxUJf3VQuuJj+fDIFl4+KkBVbw4Ef6jA==}
     engines: {node: '>= 12'}
 
-  '@nomiclabs/hardhat-solhint@4.0.2':
-    resolution: {integrity: sha512-g+MXCH/im/NySmK7MoaQlHc7th/YWWqP2QP8SjRdp1+qmOP/5HBiOfYdYNlz9FIpwoAxIw3+PpuFlkEVZDmsIA==}
+  '@nomiclabs/hardhat-solhint@4.1.0':
+    resolution: {integrity: sha512-sjmNvplxtUINNkFKvO7X9Ozhlzc0PIrw/sKag1actmsg/qUbDnCV1K8Blh/L6uWbb8nbwi+dCafHx/OgR1oiCg==}
     peerDependencies:
-      hardhat: ^2.0.0
+      hardhat: ^2.26.0
 
   '@paulmillr/qr@0.2.1':
     resolution: {integrity: sha512-IHnV6A+zxU7XwmKFinmYjUcwlyK9+xkG3/s9KcQhI9BjQKycrJ1JRO+FbNYPwZiPKW3je/DR0k7w8/gLa5eaxQ==}
@@ -7973,7 +7973,7 @@ snapshots:
       '@nomicfoundation/solidity-analyzer-linux-x64-musl': 0.1.2
       '@nomicfoundation/solidity-analyzer-win32-x64-msvc': 0.1.2
 
-  '@nomiclabs/hardhat-solhint@4.0.2(hardhat@2.25.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.0.13)(typescript@5.8.3))(typescript@5.8.3)(utf-8-validate@5.0.10))(typescript@5.8.3)':
+  '@nomiclabs/hardhat-solhint@4.1.0(hardhat@2.25.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.0.13)(typescript@5.8.3))(typescript@5.8.3)(utf-8-validate@5.0.10))(typescript@5.8.3)':
     dependencies:
       hardhat: 2.25.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.0.13)(typescript@5.8.3))(typescript@5.8.3)(utf-8-validate@5.0.10)
       solhint: 5.0.5(typescript@5.8.3)
