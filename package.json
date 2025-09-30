@@ -21,6 +21,7 @@
     "elliptic": ">=6.6.1",
     "eth-gas-reporter": ">=0.2.26",
     "flat": ">=5.0.1",
+    "@metamask/sdk": ">=0.33.1",
     "minimatch": ">=3.0.5",
     "request": ">=2.88.2",
     "tough-cookie": ">=4.1.3",
