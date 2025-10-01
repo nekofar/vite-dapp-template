@@ -105,8 +105,8 @@ importers:
         specifier: 2.5.1
         version: 2.5.1(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)
       dotenv:
-        specifier: 17.2.1
-        version: 17.2.1
+        specifier: 17.2.3
+        version: 17.2.3
       eslint:
         specifier: 9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -3017,8 +3017,8 @@ packages:
     resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
     engines: {node: '>=12'}
 
-  dotenv@17.2.1:
-    resolution: {integrity: sha512-kQhDYKZecqnM0fCnzI5eIv5L4cAe/iRI+HqMbO/hbRdTAeXDG+M9FjipUxNfbARuEg4iHIbhnhs78BCHNbSxEQ==}
+  dotenv@17.2.3:
+    resolution: {integrity: sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==}
     engines: {node: '>=12'}
 
   ds-test@https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0:
@@ -10356,7 +10356,7 @@ snapshots:
 
   dotenv@16.6.1: {}
 
-  dotenv@17.2.1: {}
+  dotenv@17.2.3: {}
 
   ds-test@https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0: {}
 
