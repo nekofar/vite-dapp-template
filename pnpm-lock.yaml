@@ -62,8 +62,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       lucide-react:
-        specifier: 0.542.0
-        version: 0.542.0(react@19.1.1)
+        specifier: 0.544.0
+        version: 0.544.0(react@19.1.1)
       react:
         specifier: 19.1.1
         version: 19.1.1
@@ -169,7 +169,7 @@ importers:
         version: https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0
       forge-std:
         specifier: foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/0768d9c08c085c79bb31d88683a78770764fec49
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/17a9b2398a7d629931dc66a168a098d051d53dc6
       solidity-stringutils:
         specifier: Arachnid/solidity-stringutils
         version: https://codeload.github.com/Arachnid/solidity-stringutils/tar.gz/4b2fcc43fa0426e19ce88b1f1ec16f5903a2e461
@@ -244,8 +244,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       lucide-react:
-        specifier: 0.542.0
-        version: 0.542.0(react@19.1.1)
+        specifier: 0.544.0
+        version: 0.544.0(react@19.1.1)
       react:
         specifier: 19.1.1
         version: 19.1.1
@@ -3467,8 +3467,8 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/0768d9c08c085c79bb31d88683a78770764fec49:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/0768d9c08c085c79bb31d88683a78770764fec49}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/17a9b2398a7d629931dc66a168a098d051d53dc6:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/17a9b2398a7d629931dc66a168a098d051d53dc6}
     version: 1.10.0
 
   form-data-encoder@2.1.4:
@@ -4345,8 +4345,8 @@ packages:
   lru_map@0.3.3:
     resolution: {integrity: sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==}
 
-  lucide-react@0.542.0:
-    resolution: {integrity: sha512-w3hD8/SQB7+lzU2r4VdFyzzOzKnUjTZIF/MQJGSSvni7Llewni4vuViRppfRAa2guOsY5k4jZyxw/i9DQHv+dw==}
+  lucide-react@0.544.0:
+    resolution: {integrity: sha512-t5tS44bqd825zAW45UQxpG2CvcC4urOwn2TrwSH8u+MjeE+1NnWl6QqeQ/6NdjMqdOygyiT9p3Ev0p1NJykxjw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -10910,7 +10910,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/0768d9c08c085c79bb31d88683a78770764fec49: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/17a9b2398a7d629931dc66a168a098d051d53dc6: {}
 
   form-data-encoder@2.1.4: {}
 
@@ -11893,7 +11893,7 @@ snapshots:
 
   lru_map@0.3.3: {}
 
-  lucide-react@0.542.0(react@19.1.1):
+  lucide-react@0.544.0(react@19.1.1):
     dependencies:
       react: 19.1.1
 
