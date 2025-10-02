@@ -1,6 +1,6 @@
 {
   "name": "vite-dapp-template",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "private": true,
   "description": "A template for create dApps using Vite",
   "keywords": [],
@@ -30,13 +30,13 @@
   },
   "devDependencies": {
     "husky": "9.1.7",
-    "lint-staged": "16.1.5",
+    "lint-staged": "16.2.3",
     "prettier": "3.6.2",
     "prettier-plugin-packagejson": "2.5.19",
     "prettier-plugin-solidity": "2.1.0",
     "prettier-plugin-toml": "2.0.6",
     "prettier-plugin-tailwindcss": "0.6.14",
-    "turbo": "2.5.6"
+    "turbo": "2.5.8"
   },
   "packageManager": "pnpm@10.10.0",
   "engines": {
