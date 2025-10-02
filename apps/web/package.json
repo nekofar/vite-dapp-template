@@ -31,7 +31,7 @@
     "@types/react": "19.2.0",
     "@types/react-dom": "19.2.0",
     "@vitejs/plugin-react": "4.7.0",
-    "@wagmi/cli": "2.5.1",
+    "@wagmi/cli": "2.6.0",
     "dotenv": "17.2.3",
     "eslint": "9.36.0",
     "eslint-import-resolver-typescript": "4.4.4",
