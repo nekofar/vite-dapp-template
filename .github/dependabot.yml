@@ -70,6 +70,7 @@ updates:
         patterns:
           - 'viem'
           - 'wagmi'
+          - '@wagmi/*'
     # List of packages to ignore for specific update types
     ignore:
       - dependency-name: "*"
