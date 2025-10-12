@@ -1,59 +1,429 @@
 # =====================================================================
-# 🚀 DEPLOY WEB APPLICATION WORKFLOW
+# 🚀 DEPLOY WEB APPLICATION — Split Jobs (PinMe | GitHub Pages)
 # =====================================================================
 name: 🚀 Deploy Web Application
 
 # ---------------------------------------------------------------------
 # 📋 WORKFLOW TRIGGERS
+# - Manual dispatch for ad-hoc deploys
+# - Release published for versioned deploys
+# Each job uses path filters (via a changes detector) to decide whether
+# to run on a given event.
 # ---------------------------------------------------------------------
 on:
-  workflow_dispatch: # 👆 Allow manual triggering
+  workflow_dispatch:
   release:
-    types: [published] # 📦 Run when a new release is published
+    types: [published]
+
+# ---------------------------------------------------------------------
+# 🔐 PERMISSIONS (required for GitHub Pages)
+# ---------------------------------------------------------------------
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 # ---------------------------------------------------------------------
 # 💼 JOBS
 # ---------------------------------------------------------------------
 jobs:
-  deploy:
-    name: 🔄 Deploy Application
+  # -------------------------------------------------------------
+  # 🔎 Detect changed paths and expose booleans for each target
+  # -------------------------------------------------------------
+  changes:
+    name: 🔎 Detect changes
     runs-on: ubuntu-latest
-    timeout-minutes: 15 # ⏱️ Set a timeout to prevent long-running jobs
-
+    outputs:
+      pinme: ${{ steps.filter.outputs.pinme }}
+      pages: ${{ steps.filter.outputs.pages }}
     steps:
-      # 📥 CHECKOUT
-      - name: 📥 Checkout repository code
+      - name: 📥 Checkout
+        uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: 🧮 Compute compare range (release)
+        id: cmp
+        if: ${{ github.event_name == 'release' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --tags --force
+
+          CUR_TAG="${{ github.event.release.tag_name }}"
+          REF="$CUR_TAG"
+
+          # Find previous tag; if none, compare to repo root commit
+          PREV_TAG="$(git describe --tags --abbrev=0 "${CUR_TAG}^" 2>/dev/null || true)"
+          if [ -n "$PREV_TAG" ]; then
+            BASE="$PREV_TAG"
+          else
+            BASE="$(git rev-list --max-parents=0 HEAD)"
+          fi
+
+          echo "base=$BASE" >> "$GITHUB_OUTPUT"
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+
+      - name: 🔍 Paths filter
+        id: filter
+        uses: dorny/paths-filter@v3.0.2
+        with:
+          # For release events, compare previous tag -> current tag.
+          # For other events, these resolve to empty and action uses its defaults.
+          base: ${{ steps.cmp.outputs.base }}
+          ref: ${{ steps.cmp.outputs.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          filters: |
+            pinme:
+              - 'apps/web/**'
+              - 'packages/ui/**'
+              - 'apps/web/vite.config.ts'
+              - 'apps/web/index.html'
+              - '.github/workflows/deploy.yml'
+              - 'pnpm-lock.yaml'
+            pages:
+              - 'apps/web/**'
+              - 'packages/ui/**'
+              - 'apps/web/vite.config.ts'
+              - 'apps/web/index.html'
+              - 'apps/web/public/**'
+              - '.github/workflows/deploy.yml'
+              - 'pnpm-lock.yaml'
+
+  # -------------------------------------------------------------
+  # 📦 PinMe Deploy (independent job)
+  # - Uses base path "/"
+  # - Separate cache key and artifact
+  # - Includes a deploy-check (dry-run-like validation)
+  # -------------------------------------------------------------
+  deploy_pinme:
+    name: 📦 Deploy to PinMe
+    runs-on: ubuntu-latest
+    needs: changes
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'release' && needs.changes.outputs.pinme == 'true')
+    timeout-minutes: 15
+    env:
+      NODE_ENV: production
+      # Force base path to "/" for PinMe deployments
+      VITE_BASE_PATH: "/"
+      # Runtime config (override as needed for PinMe)
+      VITE_CHAIN_ID: ${{ vars.VITE_CHAIN_ID }}
+      VITE_CHAIN_NAME: ${{ vars.VITE_CHAIN_NAME }}
+      VITE_WC_PROJECT_ID: ${{ secrets.VITE_WC_PROJECT_ID }}
+      VITE_RPC_HTTP_URL: ${{ secrets.VITE_RPC_HTTP_URL }}
+      VITE_SUBGRAPH_URL: ${{ vars.VITE_SUBGRAPH_URL }}
+      # Site metadata (defaults computed later if unset)
+      VITE_SITE_TITLE: ${{ vars.VITE_SITE_TITLE }}
+      VITE_SITE_DESCRIPTION: ${{ vars.VITE_SITE_DESCRIPTION }}
+      VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
+      VITE_OG_IMAGE: ${{ vars.VITE_OG_IMAGE }}
+      VITE_FC_IMAGE: ${{ vars.VITE_FC_IMAGE }}
+      VITE_FC_BUTTON: ${{ vars.VITE_FC_BUTTON }}
+      VITE_FC_LAUNCH_URL: ${{ vars.VITE_FC_LAUNCH_URL }}
+      VITE_FC_SPLASH_ICON: ${{ vars.VITE_FC_SPLASH_ICON }}
+      VITE_FC_SPLASH_BG: ${{ vars.VITE_FC_SPLASH_BG }}
+    steps:
+      - name: 📥 Checkout
         uses: actions/checkout@v5.0.0
 
-      # 🛠️ SETUP ENVIRONMENT
+      - &compute_site_defaults
+        name: 🔧 Compute site defaults
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${GITHUB_ENV:-}" ]]; then
+            echo "GITHUB_ENV is not defined" >&2
+            exit 1
+          fi
+
+          REPO="${GITHUB_REPOSITORY:-}"
+          if [[ -z "$REPO" ]]; then
+            echo "GITHUB_REPOSITORY is not defined" >&2
+            exit 1
+          fi
+
+          REPO_NAME="${REPO#*/}"
+          OWNER="${REPO%%/*}"
+
+          if [[ -z "${VITE_BASE_PATH:-}" ]]; then
+            VITE_BASE_PATH="/${REPO_NAME}/"
+            echo "VITE_BASE_PATH not provided; defaulting to ${VITE_BASE_PATH}"
+          fi
+
+          : "${VITE_SITE_TITLE:=Lil Nouns ENS}"
+          : "${VITE_SITE_DESCRIPTION:=Claim subnames under lilnouns.eth}"
+          : "${VITE_SITE_URL:=https://${OWNER}.github.io/${REPO_NAME}}"
+          : "${VITE_OG_IMAGE:=og.png}"
+          : "${VITE_FC_IMAGE:=$VITE_OG_IMAGE}"
+          : "${VITE_FC_BUTTON:=Open App}"
+          : "${VITE_FC_LAUNCH_URL:=$VITE_SITE_URL}"
+          : "${VITE_FC_SPLASH_ICON:=splash.png}"
+          : "${VITE_FC_SPLASH_BG:=#f6e6ee}"
+
+          make_absolute() {
+            local value="$1"
+            if [[ -z "$value" ]]; then
+              echo ""
+              return
+            fi
+
+            if [[ "$value" == *"://"* ]]; then
+              echo "$value"
+            else
+              value="${value#/}"
+              echo "${VITE_SITE_URL%/}/$value"
+            fi
+          }
+
+          VITE_OG_IMAGE="$(make_absolute "$VITE_OG_IMAGE")"
+          VITE_FC_IMAGE="$(make_absolute "$VITE_FC_IMAGE")"
+          VITE_FC_SPLASH_ICON="$(make_absolute "$VITE_FC_SPLASH_ICON")"
+
+          {
+            printf 'VITE_BASE_PATH=%s\n' "$VITE_BASE_PATH"
+            printf 'VITE_SITE_TITLE=%s\n' "$VITE_SITE_TITLE"
+            printf 'VITE_SITE_DESCRIPTION=%s\n' "$VITE_SITE_DESCRIPTION"
+            printf 'VITE_SITE_URL=%s\n' "$VITE_SITE_URL"
+            printf 'VITE_OG_IMAGE=%s\n' "$VITE_OG_IMAGE"
+            printf 'VITE_FC_IMAGE=%s\n' "$VITE_FC_IMAGE"
+            printf 'VITE_FC_BUTTON=%s\n' "$VITE_FC_BUTTON"
+            printf 'VITE_FC_LAUNCH_URL=%s\n' "$VITE_FC_LAUNCH_URL"
+            printf 'VITE_FC_SPLASH_ICON=%s\n' "$VITE_FC_SPLASH_ICON"
+            printf 'VITE_FC_SPLASH_BG=%s\n' "$VITE_FC_SPLASH_BG"
+          } >> "$GITHUB_ENV"
+
       - name: 🔧 Install Foundry
         uses: foundry-rs/foundry-toolchain@v1.5.0
         with:
           version: nightly
 
-      - name: 📦 Install pnpm
+      - name: ✅ Ensure Forge on PATH
+        shell: bash
+        run: |
+          echo "$HOME/.foundry/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.foundry/bin:$PATH"
+          forge --version
+
+      - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v4.2.0
         with:
           run_install: false
 
-      - name: 🟢 Install Node.js
-        uses: actions/setup-node@v5
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v5.0.0
         with:
-          cache: "pnpm"
           node-version-file: "package.json"
+          cache: "pnpm"
 
-      # 📚 DEPENDENCIES
       - name: 📚 Install dependencies
         run: pnpm install
 
-      # 🏗️ BUILD
-      - name: 🏗️ Build the apps and packages
+      - name: 🏗️ Build web (base=/)
+        run: pnpm -C apps/web build
+
+      - name: 🔎 Deploy-check (dry-run)
+        shell: bash
+        run: |
+          set -euo pipefail
+          ls -la apps/web/dist
+          # Validate that built asset URLs are absolute (base="/")
+          if grep -Eo '<script[^>]+src="/[^"]+"' apps/web/dist/index.html >/dev/null; then
+            echo "✅ index.html references absolute asset paths"
+          else
+            echo "❌ Expected absolute asset paths in index.html (base=/)" >&2
+            echo "--- index.html (head snippet) ---"
+            sed -n '1,80p' apps/web/dist/index.html || true
+            exit 1
+          fi
+          # Optional manifest presence
+          test -f apps/web/dist/.vite/manifest.json && echo "✅ Vite manifest present" || echo "ℹ️ No manifest (ok if disabled)"
+
+      - name: 📦 Upload PinMe artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: pinme-dist
+          path: apps/web/dist
+
+      - name: 🚀 Deploy to PinMe
+        id: pinme_deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd ./apps/web/
+          # Run deploy and capture output
+          pnpm pinme upload dist | tee pinme_output.log
+          # Extract URL: prefer the line after 'URL:'; fallback to first http(s) URL
+          url="$(sed -n '/^URL:/{n;p;q}' pinme_output.log | tr -d '\r' | xargs || true)"
+          if [ -z "${url:-}" ]; then
+            url="$(grep -Eo 'https?://[^[:space:]]+' pinme_output.log | head -n1 | tr -d '\r' | xargs || true)"
+          fi
+          if [ -n "${url:-}" ]; then
+            echo "Detected PinMe URL: $url"
+            # Export for subsequent steps and as step output
+            echo "PINME_URL=$url" >> "$GITHUB_ENV"
+            echo "url=$url" >> "$GITHUB_OUTPUT"
+          else
+            echo "Warning: Could not detect PinMe URL from output" >&2
+          fi
+
+      - name: 📝 Write deployment summary (PinMe)
+        shell: bash
+        run: |
+          BRANCH="${GITHUB_REF_NAME:-N/A}"
+          SHORT_SHA="${GITHUB_SHA:-unknown}"
+          SHORT_SHA="${SHORT_SHA:0:7}"
+          PR_NUMBER="${{ github.event.pull_request.number || '' }}"
+          [ -z "$PR_NUMBER" ] && PR_NUMBER="N/A"
+          if [ "${{ github.event_name }}" = "release" ]; then
+            ENVIRONMENT="production"
+          else
+            ENVIRONMENT="staging"
+          fi
+
+          # Prefer env var exported via GITHUB_ENV; fallback to step output
+          PINME_URL="${PINME_URL:-${{ steps.pinme_deploy.outputs.url || '' }}}"
+          [ -z "$PINME_URL" ] && PINME_URL="Not available"
+          # Use site URL if set
+          SITE_URL="${VITE_SITE_URL:-}"
+          if [ -n "$SITE_URL" ]; then
+            PROD_URL="$SITE_URL"
+          else
+            PROD_URL="Not available"
+          fi
+
+          {
+            echo "### Deployment Summary — PinMe"
+            echo "- App: apps/web"
+            echo "- Environment: $ENVIRONMENT"
+            echo "- Production URL: $PROD_URL"
+            echo "- Preview/PR URL: $PINME_URL"
+            echo "- Branch: $BRANCH"
+            echo "- Commit: $SHORT_SHA"
+            echo "- PR: $PR_NUMBER"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # -------------------------------------------------------------
+  # 🌐 GitHub Pages Deploy (independent job)
+  # - Computes a default base path if not provided
+  # - Separate cache key and artifact
+  # - Includes a deploy-check using actions/deploy-pages dry-run
+  # -------------------------------------------------------------
+  deploy_pages:
+    name: 🌐 Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: changes
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'release' && needs.changes.outputs.pages == 'true')
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.pages_deploy.outputs.page_url }}
+    env:
+      NODE_ENV: production
+      VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH }}
+      VITE_CHAIN_ID: ${{ vars.VITE_CHAIN_ID }}
+      VITE_CHAIN_NAME: ${{ vars.VITE_CHAIN_NAME }}
+      VITE_WC_PROJECT_ID: ${{ secrets.VITE_WC_PROJECT_ID }}
+      VITE_RPC_HTTP_URL: ${{ secrets.VITE_RPC_HTTP_URL }}
+      VITE_SUBGRAPH_URL: ${{ vars.VITE_SUBGRAPH_URL }}
+      # Site metadata (defaults computed later if unset)
+      VITE_SITE_TITLE: ${{ vars.VITE_SITE_TITLE }}
+      VITE_SITE_DESCRIPTION: ${{ vars.VITE_SITE_DESCRIPTION }}
+      VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
+      VITE_OG_IMAGE: ${{ vars.VITE_OG_IMAGE }}
+      VITE_FC_IMAGE: ${{ vars.VITE_FC_IMAGE }}
+      VITE_FC_BUTTON: ${{ vars.VITE_FC_BUTTON }}
+      VITE_FC_LAUNCH_URL: ${{ vars.VITE_FC_LAUNCH_URL }}
+      VITE_FC_SPLASH_ICON: ${{ vars.VITE_FC_SPLASH_ICON }}
+      VITE_FC_SPLASH_BG: ${{ vars.VITE_FC_SPLASH_BG }}
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v5.0.0
+
+      - *compute_site_defaults
+
+      - name: 🔧 Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1.5.0
+        with:
+          version: nightly
+
+      - name: ✅ Ensure Forge on PATH
+        shell: bash
+        run: |
+          echo "$HOME/.foundry/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.foundry/bin:$PATH"
+          forge --version
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4.2.0
+        with:
+          run_install: false
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v5.0.0
+        with:
+          node-version-file: "package.json"
+          cache: "pnpm"
+
+      - name: 📚 Install dependencies
+        run: pnpm install
+
+      - name: 🏗️ Build all apps/packages
         run: pnpm run build
 
-      # 🧪 TEST
-      - name: 🧪 Execute tests
-        run: pnpm run test
+      - name: 🔎 Deploy-check (dry-run)
+        run: |
+          test -d apps/web/dist && echo "✅ Found built Pages artifact"
 
-      # 🚀 DEPLOY
-      - name: 🚀 Deploy to pinme
-        run: cd ./apps/web/ && pnpm pinme upload dist
+      - name: ⚙️ Configure GitHub Pages
+        uses: actions/configure-pages@v5.0.0
+
+      - name: 📦 Upload Pages artifact (dry-run)
+        uses: actions/upload-pages-artifact@v4.0.0
+        with:
+          path: apps/web/dist
+
+      - name: 🌐 Deploy to GitHub Pages (dry-run)
+        id: pages_deploy_dry
+        uses: actions/deploy-pages@v4.0.5
+        with:
+          dry-run: true
+
+      - name: 🌐 Deploy to GitHub Pages
+        id: pages_deploy
+        uses: actions/deploy-pages@v4.0.5
+
+      - name: 📝 Write deployment summary (GitHub Pages)
+        shell: bash
+        run: |
+          BRANCH="${GITHUB_REF_NAME:-N/A}"
+          SHORT_SHA="${GITHUB_SHA:-unknown}"
+          SHORT_SHA="${SHORT_SHA:0:7}"
+          PR_NUMBER="${{ github.event.pull_request.number || '' }}"
+          [ -z "$PR_NUMBER" ] && PR_NUMBER="N/A"
+          if [ "${{ github.event_name }}" = "release" ]; then
+            ENVIRONMENT="production"
+          else
+            ENVIRONMENT="staging"
+          fi
+
+          PROD_URL="${{ steps.pages_deploy.outputs.page_url || '' }}"
+          [ -z "$PROD_URL" ] && PROD_URL="Not available"
+          SITE_URL="${VITE_SITE_URL:-}"
+          [ -z "$SITE_URL" ] && SITE_URL="Not available"
+
+          {
+            echo "### Deployment Summary — GitHub Pages"
+            echo "- App: apps/web"
+            echo "- Environment: $ENVIRONMENT"
+            echo "- Production URL (from deploy): $PROD_URL"
+            echo "- Production URL (computed): $SITE_URL"
+            echo "- Preview/PR URL: Not available"
+            echo "- Branch: $BRANCH"
+            echo "- Commit: $SHORT_SHA"
+            echo "- PR: $PR_NUMBER"
+          } >> "$GITHUB_STEP_SUMMARY"
