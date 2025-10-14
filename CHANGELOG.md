@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0-beta.2] - 2025-10-14
+
+### Miscellaneous Tasks
+
+- Ensure `forge` binary is added to PATH
+- Split deploy jobs for better filtering
+
 ## [1.0.0-beta.1] - 2025-10-02
 
 ### Bug Fixes
