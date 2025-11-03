@@ -84,8 +84,8 @@ importers:
         specifier: 1.53.1
         version: 1.53.1(eslint@9.39.0(jiti@2.6.1))(ts-api-utils@2.1.0(typescript@5.9.3))(typescript@5.9.3)
       '@eslint/js':
-        specifier: 9.38.0
-        version: 9.38.0
+        specifier: 9.39.0
+        version: 9.39.0
       '@tailwindcss/vite':
         specifier: 4.1.16
         version: 4.1.16(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))
@@ -263,8 +263,8 @@ importers:
         version: 4.1.12
     devDependencies:
       '@eslint/js':
-        specifier: 9.38.0
-        version: 9.38.0
+        specifier: 9.39.0
+        version: 9.39.0
       '@tailwindcss/postcss':
         specifier: 4.1.16
         version: 4.1.16
