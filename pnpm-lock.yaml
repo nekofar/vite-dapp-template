@@ -169,7 +169,7 @@ importers:
         version: https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0
       forge-std:
         specifier: foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/3f999523613ab5454a5c4ae4abeaa8ea2ba7bcae
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/24d76395806bf34aaab7ce0291094174631487f6
       solidity-stringutils:
         specifier: Arachnid/solidity-stringutils
         version: https://codeload.github.com/Arachnid/solidity-stringutils/tar.gz/4b2fcc43fa0426e19ce88b1f1ec16f5903a2e461
@@ -188,7 +188,7 @@ importers:
         version: 1.1.2(hardhat@2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10))
       '@nomicfoundation/hardhat-toolbox':
         specifier: 6.1.0
-        version: 6.1.0(36ffafa0300107f053d013da4f267136)
+        version: 6.1.0(e88d0a57f805957a3be9ff84bb28deb1)
       '@nomiclabs/hardhat-solhint':
         specifier: 4.1.0
         version: 4.1.0(hardhat@2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10))(typescript@5.9.3)
@@ -259,8 +259,8 @@ importers:
         specifier: 1.4.0
         version: 1.4.0
       zod:
-        specifier: 4.1.12
-        version: 4.1.12
+        specifier: 4.1.13
+        version: 4.1.13
     devDependencies:
       '@eslint/js':
         specifier: 9.39.1
@@ -3879,8 +3879,8 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/3f999523613ab5454a5c4ae4abeaa8ea2ba7bcae:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/3f999523613ab5454a5c4ae4abeaa8ea2ba7bcae}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/24d76395806bf34aaab7ce0291094174631487f6:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/24d76395806bf34aaab7ce0291094174631487f6}
     version: 1.11.0
 
   form-data-encoder@2.1.4:
@@ -6723,6 +6723,9 @@ packages:
   zod@4.1.12:
     resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}
 
+  zod@4.1.13:
+    resolution: {integrity: sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig==}
+
   zustand@5.0.0:
     resolution: {integrity: sha512-LE+VcmbartOPM+auOjCCLQOsQ05zUTp8RkgwRzefUk+2jISdMMFnxvyTjA4YNWr5ZGXYbVsEMZosttuxUBkojQ==}
     engines: {node: '>=12.20.0'}
@@ -7161,7 +7164,7 @@ snapshots:
       '@eslint-react/eff': 1.53.1
       '@typescript-eslint/utils': 8.45.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       ts-pattern: 5.8.0
-      zod: 4.1.12
+      zod: 4.1.13
     transitivePeerDependencies:
       - eslint
       - supports-color
@@ -7173,7 +7176,7 @@ snapshots:
       '@eslint-react/kit': 1.53.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/utils': 8.45.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       ts-pattern: 5.8.0
-      zod: 4.1.12
+      zod: 4.1.13
     transitivePeerDependencies:
       - eslint
       - supports-color
@@ -8065,7 +8068,7 @@ snapshots:
       ethereumjs-util: 7.1.5
       hardhat: 2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10)
 
-  '@nomicfoundation/hardhat-toolbox@6.1.0(36ffafa0300107f053d013da4f267136)':
+  '@nomicfoundation/hardhat-toolbox@6.1.0(e88d0a57f805957a3be9ff84bb28deb1)':
     dependencies:
       '@nomicfoundation/hardhat-chai-matchers': 2.1.0(@nomicfoundation/hardhat-ethers@3.1.2(ethers@6.15.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(hardhat@2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10)))(chai@5.3.3)(ethers@6.15.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(hardhat@2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10))
       '@nomicfoundation/hardhat-ethers': 3.1.2(ethers@6.15.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(hardhat@2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10))
@@ -8080,7 +8083,7 @@ snapshots:
       chai: 5.3.3
       ethers: 6.15.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       hardhat: 2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10)
-      hardhat-gas-reporter: 2.3.0(bufferutil@4.0.9)(hardhat@2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10))(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.12)
+      hardhat-gas-reporter: 2.3.0(bufferutil@4.0.9)(hardhat@2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10))(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
       solidity-coverage: 0.8.16(hardhat@2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10))
       ts-node: 10.9.2(@types/node@24.10.1)(typescript@5.9.3)
       typechain: 8.3.2(typescript@5.9.3)
@@ -10303,6 +10306,11 @@ snapshots:
       typescript: 5.9.3
       zod: 4.1.12
 
+  abitype@1.1.0(typescript@5.9.3)(zod@4.1.13):
+    optionalDependencies:
+      typescript: 5.9.3
+      zod: 4.1.13
+
   abitype@1.1.1(typescript@5.9.3)(zod@4.1.12):
     optionalDependencies:
       typescript: 5.9.3
@@ -10322,6 +10330,11 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
       zod: 4.1.12
+
+  abitype@1.2.0(typescript@5.9.3)(zod@4.1.13):
+    optionalDependencies:
+      typescript: 5.9.3
+      zod: 4.1.13
 
   abort-controller@3.0.0:
     dependencies:
@@ -12031,7 +12044,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/3f999523613ab5454a5c4ae4abeaa8ea2ba7bcae: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/24d76395806bf34aaab7ce0291094174631487f6: {}
 
   form-data-encoder@2.1.4: {}
 
@@ -12294,7 +12307,7 @@ snapshots:
     optionalDependencies:
       uglify-js: 3.19.3
 
-  hardhat-gas-reporter@2.3.0(bufferutil@4.0.9)(hardhat@2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10))(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.12):
+  hardhat-gas-reporter@2.3.0(bufferutil@4.0.9)(hardhat@2.27.0(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@24.10.1)(typescript@5.9.3))(typescript@5.9.3)(utf-8-validate@5.0.10))(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13):
     dependencies:
       '@ethersproject/abi': 5.8.0
       '@ethersproject/bytes': 5.8.0
@@ -12311,7 +12324,7 @@ snapshots:
       lodash: 4.17.21
       markdown-table: 2.0.0
       sha1: 1.1.1
-      viem: 2.40.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.12)
+      viem: 2.40.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -13424,7 +13437,7 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
-  ox@0.9.14(typescript@5.9.3)(zod@4.1.12):
+  ox@0.9.14(typescript@5.9.3)(zod@4.1.13):
     dependencies:
       '@adraffy/ens-normalize': 1.11.1
       '@noble/ciphers': 1.3.0
@@ -13432,7 +13445,7 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
-      abitype: 1.2.0(typescript@5.9.3)(zod@4.1.12)
+      abitype: 1.2.0(typescript@5.9.3)(zod@4.1.13)
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.9.3
@@ -13478,6 +13491,21 @@ snapshots:
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
       abitype: 1.2.0(typescript@5.9.3)(zod@4.1.12)
+      eventemitter3: 5.0.1
+    optionalDependencies:
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - zod
+
+  ox@0.9.6(typescript@5.9.3)(zod@4.1.13):
+    dependencies:
+      '@adraffy/ens-normalize': 1.11.1
+      '@noble/ciphers': 1.3.0
+      '@noble/curves': 1.9.1
+      '@noble/hashes': 1.8.0
+      '@scure/bip32': 1.7.0
+      '@scure/bip39': 1.6.0
+      abitype: 1.2.0(typescript@5.9.3)(zod@4.1.13)
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.9.3
@@ -13672,9 +13700,9 @@ snapshots:
       hono: 4.10.6
       idb-keyval: 6.2.2
       mipd: 0.0.7(typescript@5.9.3)
-      ox: 0.9.14(typescript@5.9.3)(zod@4.1.12)
+      ox: 0.9.14(typescript@5.9.3)(zod@4.1.13)
       viem: 2.40.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
-      zod: 4.1.12
+      zod: 4.1.13
       zustand: 5.0.8(@types/react@19.2.6)(immer@10.0.2)(react@19.2.0)(use-sync-external-store@1.4.0(react@19.2.0))
     optionalDependencies:
       '@tanstack/react-query': 5.90.10(react@19.2.0)
@@ -15002,6 +15030,23 @@ snapshots:
       - utf-8-validate
       - zod
 
+  viem@2.40.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13):
+    dependencies:
+      '@noble/curves': 1.9.1
+      '@noble/hashes': 1.8.0
+      '@scure/bip32': 1.7.0
+      '@scure/bip39': 1.6.0
+      abitype: 1.1.0(typescript@5.9.3)(zod@4.1.13)
+      isows: 1.0.7(ws@8.18.3(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      ox: 0.9.6(typescript@5.9.3)(zod@4.1.13)
+      ws: 8.18.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+    optionalDependencies:
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+      - zod
+
   vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1):
     dependencies:
       esbuild: 0.25.12
@@ -15249,6 +15294,8 @@ snapshots:
   zod@3.25.76: {}
 
   zod@4.1.12: {}
+
+  zod@4.1.13: {}
 
   zustand@5.0.0(@types/react@19.2.6)(immer@10.0.2)(react@19.2.0)(use-sync-external-store@1.4.0(react@19.2.0)):
     optionalDependencies:
