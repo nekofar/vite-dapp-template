@@ -5,6 +5,7 @@
   "keywords": [],
   "license": "Apache-2.0",
   "author": "Milad Nekofar <milad@nekofar.com>",
+  "type": "module",
   "directories": {
     "lib": "lib",
     "test": "test"
