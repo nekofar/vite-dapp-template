@@ -35,6 +35,7 @@
     "solidity-stringutils": "Arachnid/solidity-stringutils"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "3.0.3",
     "@nomicfoundation/hardhat-toolbox-mocha-ethers": "3.0.2",
     "@typechain/ethers-v6": "0.5.1",
     "@types/chai": "5.2.2",
