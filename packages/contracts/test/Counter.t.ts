@@ -1,25 +1,30 @@
 import { expect } from "chai";
-import { ethers } from "hardhat";
-import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
+import { network } from "hardhat";
 
 describe("Counter contract", function () {
-    async function CounterLockFixture() {
-        const counter = await ethers.deployContract("Counter");
-        await counter.setNumber(0);
+  let ethers;
+  let networkHelpers;
+  before(async function () {
+    ({ ethers, networkHelpers } = await network.connect());
+  });
 
-        return { counter };
-    }
+  async function CounterLockFixture() {
+    const counter = await ethers.deployContract("Counter");
+    await counter.setNumber(0);
 
-    it("Should increment the number correctly", async function () {
-        const { counter } = await loadFixture(CounterLockFixture);
-        await counter.increment();
-        expect(await counter.number()).to.equal(1);
-    });
+    return { counter };
+  }
 
-    // This is not a fuzz test because Hardhat does not support fuzzing yet.
-    it("Should set the number correctly", async function () {
-        const { counter } = await loadFixture(CounterLockFixture);
-        await counter.setNumber(100);
-        expect(await counter.number()).to.equal(100);
-    });
+  it("Should increment the number correctly", async function () {
+    const { counter } = await networkHelpers.loadFixture(CounterLockFixture);
+    await counter.increment();
+    expect(await counter.number()).to.equal(1);
+  });
+
+  // This is not a fuzz test because Hardhat does not support fuzzing yet.
+  it("Should set the number correctly", async function () {
+    const { counter } = await networkHelpers.loadFixture(CounterLockFixture);
+    await counter.setNumber(100);
+    expect(await counter.number()).to.equal(100);
+  });
 });
