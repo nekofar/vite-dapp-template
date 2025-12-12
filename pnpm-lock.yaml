@@ -147,8 +147,8 @@ importers:
         specifier: 6.1.2
         version: 6.1.2
       tailwindcss:
-        specifier: 4.1.17
-        version: 4.1.17
+        specifier: 4.1.18
+        version: 4.1.18
       tw-animate-css:
         specifier: 1.4.0
         version: 1.4.0
@@ -169,7 +169,7 @@ importers:
         version: https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0
       forge-std:
         specifier: foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/e97cf30e3d65d4edec69e8a453b0878ec0acf51c
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/27ba11c86ac93d8d4a50437ae26621468fe63c20
       solidity-stringutils:
         specifier: Arachnid/solidity-stringutils
         version: https://codeload.github.com/Arachnid/solidity-stringutils/tar.gz/4b2fcc43fa0426e19ce88b1f1ec16f5903a2e461
@@ -308,8 +308,8 @@ importers:
         specifier: 16.5.0
         version: 16.5.0
       tailwindcss:
-        specifier: 4.1.17
-        version: 4.1.17
+        specifier: 4.1.18
+        version: 4.1.18
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -3879,8 +3879,8 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/e97cf30e3d65d4edec69e8a453b0878ec0acf51c:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/e97cf30e3d65d4edec69e8a453b0878ec0acf51c}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/27ba11c86ac93d8d4a50437ae26621468fe63c20:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/27ba11c86ac93d8d4a50437ae26621468fe63c20}
     version: 1.12.0
 
   form-data-encoder@2.1.4:
@@ -6118,6 +6118,9 @@ packages:
 
   tailwindcss@4.1.17:
     resolution: {integrity: sha512-j9Ee2YjuQqYT9bbRTfTZht9W/ytp5H+jJpZKiYdP/bpnXARAuELt9ofP0lPnmHjbga7SNQIxdTAXCmtKVYjN+Q==}
+
+  tailwindcss@4.1.18:
+    resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
 
   tapable@2.3.0:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
@@ -12031,7 +12034,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/e97cf30e3d65d4edec69e8a453b0878ec0acf51c: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/27ba11c86ac93d8d4a50437ae26621468fe63c20: {}
 
   form-data-encoder@2.1.4: {}
 
@@ -14577,6 +14580,8 @@ snapshots:
   tailwind-merge@3.4.0: {}
 
   tailwindcss@4.1.17: {}
+
+  tailwindcss@4.1.18: {}
 
   tapable@2.3.0: {}
 
