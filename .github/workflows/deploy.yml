@@ -196,7 +196,7 @@ jobs:
           } >> "$GITHUB_ENV"
 
       - name: 🔧 Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1.5.0
+        uses: foundry-rs/foundry-toolchain@v1.6.0
         with:
           version: nightly
 
@@ -242,7 +242,7 @@ jobs:
           test -f apps/web/dist/.vite/manifest.json && echo "✅ Vite manifest present" || echo "ℹ️ No manifest (ok if disabled)"
 
       - name: 📦 Upload PinMe artifact
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: pinme-dist
           path: apps/web/dist
@@ -347,7 +347,7 @@ jobs:
       - *compute_site_defaults
 
       - name: 🔧 Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1.5.0
+        uses: foundry-rs/foundry-toolchain@v1.6.0
         with:
           version: nightly
 
