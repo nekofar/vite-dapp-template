@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0-beta.7] - 2026-01-06
+
+### Bug Fixes
+
+- Solve some minor issues and update dependencies
+
 ## [1.0.0-beta.6] - 2025-12-30
 
 ### Bug Fixes
